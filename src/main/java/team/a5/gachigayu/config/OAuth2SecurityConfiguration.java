@@ -8,7 +8,8 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import team.a5.gachigayu.security.oauth2.OAuth2AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -26,8 +27,13 @@ public class OAuth2SecurityConfiguration {
                         .requestMatchers("/api/authorization/**").permitAll()
                         .anyRequest().authenticated())
                 .oauth2Login(oauth2Login -> oauth2Login
-                        .successHandler(new SavedRequestAwareAuthenticationSuccessHandler())
+                        .successHandler(authenticationSuccessHandler())
                         .userInfoEndpoint(userInfo -> userInfo.userService(new DefaultOAuth2UserService())))
                 .build();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return new OAuth2AuthenticationSuccessHandler();
     }
 }
