@@ -10,10 +10,17 @@ import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserServ
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import team.a5.gachigayu.security.oauth2.OAuth2AuthenticationSuccessHandler;
+import team.a5.gachigayu.security.token.TokenProvider;
 
 @Configuration
 @EnableWebSecurity
 public class OAuth2SecurityConfiguration {
+
+    private final TokenProvider tokenProvider;
+
+    public OAuth2SecurityConfiguration(TokenProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
+    }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -34,6 +41,6 @@ public class OAuth2SecurityConfiguration {
 
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new OAuth2AuthenticationSuccessHandler();
+        return new OAuth2AuthenticationSuccessHandler(tokenProvider);
     }
 }
