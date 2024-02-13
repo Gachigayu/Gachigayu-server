@@ -10,6 +10,7 @@ import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserServ
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import team.a5.gachigayu.security.oauth2.OAuth2AuthenticationSuccessHandler;
+import team.a5.gachigayu.security.oauth2.account.SignUpProcessManager;
 import team.a5.gachigayu.security.token.TokenProvider;
 
 @Configuration
@@ -17,9 +18,11 @@ import team.a5.gachigayu.security.token.TokenProvider;
 public class OAuth2SecurityConfiguration {
 
     private final TokenProvider tokenProvider;
+    private final SignUpProcessManager signUpProcessManager;
 
-    public OAuth2SecurityConfiguration(TokenProvider tokenProvider) {
+    public OAuth2SecurityConfiguration(TokenProvider tokenProvider, SignUpProcessManager signUpProcessManager) {
         this.tokenProvider = tokenProvider;
+        this.signUpProcessManager = signUpProcessManager;
     }
 
     @Bean
@@ -41,6 +44,6 @@ public class OAuth2SecurityConfiguration {
 
     @Bean
     public AuthenticationSuccessHandler authenticationSuccessHandler() {
-        return new OAuth2AuthenticationSuccessHandler(tokenProvider);
+        return new OAuth2AuthenticationSuccessHandler(tokenProvider, signUpProcessManager);
     }
 }
