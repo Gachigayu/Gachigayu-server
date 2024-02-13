@@ -2,6 +2,7 @@ package team.a5.gachigayu.security.oauth2;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -12,6 +13,7 @@ import team.a5.gachigayu.security.token.TokenProvider;
 
 import java.io.IOException;
 
+@Slf4j
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private final TokenProvider tokenProvider;
@@ -26,6 +28,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
+        log.info("oAuth2User = {}", oAuth2User);
         AccountAttributes kakaoAccountAttributes = KakaoAccountAttributes.of(oAuth2User);
 
         signUpProcessManager.processSignUp(kakaoAccountAttributes);
