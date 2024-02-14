@@ -2,18 +2,18 @@ package team.a5.gachigayu.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import team.a5.gachigayu.domain.value.Domain;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
 @Getter
 @EntityListeners(AuditingEntityListener.class)
@@ -21,8 +21,9 @@ import java.util.UUID;
 public class BaseEntity implements Serializable {
 
     @Id
-    @Column(name = "id", updatable = false, unique = true, nullable = false, length = 50)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", updatable = false, unique = true, nullable = false)
+    private Long id;
 
     @CreatedDate
     @Column(name = "created_at")
@@ -33,11 +34,6 @@ public class BaseEntity implements Serializable {
     private LocalDateTime updatedAt;
 
     protected BaseEntity() {
-    }
-
-    protected BaseEntity(Domain domain) {
-        id = String.join("", domain.toString().toLowerCase(), "_",
-                UUID.randomUUID().toString().replace("-", ""));
     }
 
     @Override

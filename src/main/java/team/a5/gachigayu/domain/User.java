@@ -7,7 +7,6 @@ import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
-import team.a5.gachigayu.domain.value.Domain;
 
 import java.util.Collection;
 
@@ -18,24 +17,22 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "email", unique = true, nullable = false, updatable = false, length = 50)
     private String email;
 
-    @Column(name = "nickname", nullable = false, length = 12)
-    private String nickname;
+    @Column(name = "name", nullable = false, length = 12)
+    private String name;
 
     protected User() {
-        super(Domain.USER);
     }
 
     @Builder
-    public User(String email, String nickname) {
-        this();
+    public User(String email, String name) {
         this.email = email;
-        this.nickname = nickname;
+        this.name = name;
     }
 
-    public static User of(String email, String nickname) {
+    public static User of(String email, String name) {
         return User.builder()
                 .email(email)
-                .nickname(nickname)
+                .name(name)
                 .build();
     }
 
@@ -75,6 +72,6 @@ public class User extends BaseEntity implements UserDetails {
     }
 
     public void updateNickname(String nickname) {
-        this.nickname = nickname;
+        this.name = nickname;
     }
 }

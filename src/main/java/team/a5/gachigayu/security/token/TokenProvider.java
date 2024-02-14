@@ -8,6 +8,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.stereotype.Component;
+import team.a5.gachigayu.domain.User;
+import team.a5.gachigayu.repository.UserRepository;
 
 import java.time.Duration;
 import java.util.Date;
@@ -16,9 +18,11 @@ import java.util.Date;
 public class TokenProvider {
 
     private final TokenProperties tokenProperties;
+    private final UserRepository userRepository;
 
-    public TokenProvider(TokenProperties tokenProperties) {
+    public TokenProvider(TokenProperties tokenProperties, UserRepository userRepository) {
         this.tokenProperties = tokenProperties;
+        this.userRepository = userRepository;
     }
 
     public String issueAccessToken(String email) {
@@ -60,9 +64,11 @@ public class TokenProvider {
         String email = parseSignedClaims(token)
                 .getPayload()
                 .getSubject();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow();
 
         return UsernamePasswordAuthenticationToken.authenticated(
-                email, null, AuthorityUtils.createAuthorityList("ROLE_USER")
+                user, null, AuthorityUtils.createAuthorityList("ROLE_USER")
         );
     }
 
