@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.a5.gachigayu.controller.dto.response.PromenadeListResponse;
 import team.a5.gachigayu.controller.dto.response.PromenadeResponse;
+import team.a5.gachigayu.controller.dto.response.PromenadeRoutesResponse;
+import team.a5.gachigayu.controller.dto.response.RouteResponse;
 import team.a5.gachigayu.domain.Promenade;
 import team.a5.gachigayu.domain.Save;
 import team.a5.gachigayu.domain.User;
@@ -61,5 +63,15 @@ public class PromenadeService {
                 .map(promenade -> PromenadeResponse.of(promenade, coordinate, savedPromenades.contains(promenade)))
                 .toList();
         return new PromenadeListResponse(promenades);
+    }
+
+    public PromenadeRoutesResponse getPromenadeRoutes(Long id) {
+        Promenade promenade = promenadeRepository.findById(id)
+                .orElseThrow();
+        List<RouteResponse> routeResponseList = promenade.getRoutes()
+                .stream()
+                .map(RouteResponse::of)
+                .toList();
+        return new PromenadeRoutesResponse(routeResponseList);
     }
 }
