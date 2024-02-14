@@ -6,8 +6,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.Getter;
-
-import java.awt.*;
+import org.locationtech.jts.geom.Point;
 
 @Getter
 @Entity

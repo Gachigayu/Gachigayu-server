@@ -7,7 +7,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
-import org.springframework.data.geo.Point;
+import org.locationtech.jts.geom.Point;
 import team.a5.gachigayu.domain.value.PromenadeType;
 
 import java.time.LocalDateTime;
@@ -33,8 +33,8 @@ public class Promenade extends BaseEntity {
     @Column(name = "time", nullable = false)
     private int time;
 
-    @Enumerated(value = EnumType.STRING)
-    @Column(name = "type", nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "type", nullable = false, columnDefinition = "VARCHAR")
     private PromenadeType type;
 
     @Column(name = "location", nullable = false)
