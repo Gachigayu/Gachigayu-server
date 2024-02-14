@@ -25,7 +25,7 @@ public record PromenadeResponse(
                 .length(promenade.getLength())
                 .time(promenade.getTime())
                 .type(promenade.getType())
-                .saved(saved) //TODO implement
+                .saved(saved)
                 .location(Coordinate.from(promenade.getLocation()))
                 .build();
     }
