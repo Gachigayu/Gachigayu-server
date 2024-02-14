@@ -6,7 +6,7 @@ import team.a5.gachigayu.domain.Promenade;
 
 import java.util.List;
 
-public interface PromenadeRepository extends JpaRepository<Promenade, String> {
+public interface PromenadeRepository extends JpaRepository<Promenade, Long> {
 
     @Query(value = "SELECT * FROM Promenade p WHERE ST_DISTANCE_SPHERE(p.location, ST_POINTFROMTEXT(:location, 4326)) <= :distance", nativeQuery = true)
     List<Promenade> findByLocationNear(String location, double distance);

@@ -14,7 +14,7 @@ public record PromenadeResponse(
         int length, int time, PromenadeType type, boolean saved, Coordinate location
 ) {
 
-    public static PromenadeResponse of(Promenade promenade, GeoPoint coordinate) {
+    public static PromenadeResponse of(Promenade promenade, GeoPoint coordinate, boolean saved) {
         int distance = (int) GeographicalDistanceUtils.calculateDistance(GeoPoint.from(promenade.getLocation()), coordinate);
         return PromenadeResponse.builder()
                 .id(promenade.getId())
@@ -25,7 +25,7 @@ public record PromenadeResponse(
                 .length(promenade.getLength())
                 .time(promenade.getTime())
                 .type(promenade.getType())
-                .saved(false) //TODO implement
+                .saved(saved) //TODO implement
                 .location(Coordinate.from(promenade.getLocation()))
                 .build();
     }
