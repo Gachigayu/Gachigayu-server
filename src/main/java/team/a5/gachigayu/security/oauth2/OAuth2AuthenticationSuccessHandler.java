@@ -29,7 +29,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
             throws IOException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
         log.info("oAuth2User = {}", oAuth2User);
-        AccountAttributes kakaoAccountAttributes = KakaoAccountAttributes.of(oAuth2User);
+        AccountAttributes kakaoAccountAttributes = KakaoAccountAttributes.from(oAuth2User);
 
         signUpProcessManager.processSignUp(kakaoAccountAttributes);
 

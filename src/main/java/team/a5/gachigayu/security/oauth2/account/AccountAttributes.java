@@ -7,6 +7,4 @@ public interface AccountAttributes extends Serializable {
     String id();
 
     String email();
-
-    String nickname();
 }

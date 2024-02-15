@@ -15,10 +15,8 @@ public class SignUpProcessManager {
 
     public void processSignUp(AccountAttributes accountAttributes) {
         String email = accountAttributes.email();
-        String nickname = accountAttributes.nickname();
         User user = userRepository.findByEmail(email)
-                .orElse(User.of(email, nickname));
-        user.updateNickname(nickname);
+                .orElse(User.of(email));
         userRepository.save(user);
     }
 }

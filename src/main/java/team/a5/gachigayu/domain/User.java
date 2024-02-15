@@ -17,22 +17,23 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "email", unique = true, nullable = false, updatable = false, length = 50)
     private String email;
 
-    @Column(name = "name", nullable = false, length = 12)
+    @Column(name = "name", length = 12)
     private String name;
+
+    @Column(name = "account_id", length = 30)
+    private String accountId;
 
     protected User() {
     }
 
     @Builder
-    public User(String email, String name) {
+    public User(String email) {
         this.email = email;
-        this.name = name;
     }
 
-    public static User of(String email, String name) {
+    public static User of(String email) {
         return User.builder()
                 .email(email)
-                .name(name)
                 .build();
     }
 
@@ -71,7 +72,8 @@ public class User extends BaseEntity implements UserDetails {
         return true;
     }
 
-    public void updateNickname(String nickname) {
-        this.name = nickname;
+    public void updateInfo(String name, String accountId) {
+        this.name = name;
+        this.accountId = accountId;
     }
 }
