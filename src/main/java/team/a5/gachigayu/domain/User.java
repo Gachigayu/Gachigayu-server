@@ -26,6 +26,9 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "account_id", length = 30)
     private String accountId;
 
+    @Column(name = "profile_image", length = 200)
+    private String profileImage;
+
     @OneToMany(mappedBy = "user")
     private List<Activity> activities = new ArrayList<>();
 
@@ -78,8 +81,9 @@ public class User extends BaseEntity implements UserDetails {
         return true;
     }
 
-    public void updateInfo(String name, String accountId) {
+    public void updateInfo(String name, String accountId, String imageURL) {
         this.name = name;
         this.accountId = accountId;
+        this.profileImage = imageURL;
     }
 }

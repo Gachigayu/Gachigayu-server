@@ -1,10 +1,12 @@
 package team.a5.gachigayu.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import team.a5.gachigayu.controller.dto.request.UserInfoRequest;
 import team.a5.gachigayu.service.UserInfoRegistrant;
 
@@ -20,7 +22,10 @@ public class UserController {
     }
 
     @PostMapping
-    public void registerUserInfo(@RequestBody UserInfoRequest userInfoRequest) {
-        userInfoRegistrant.register(userInfoRequest);
+    public void registerUserInfo(
+            @RequestPart(name = "profileImage") MultipartFile profileImage,
+            @ModelAttribute UserInfoRequest userInfoRequest
+    ) {
+        userInfoRegistrant.register(userInfoRequest, profileImage);
     }
 }
