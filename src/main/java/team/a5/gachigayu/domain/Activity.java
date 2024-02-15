@@ -22,7 +22,7 @@ public class Activity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "promenade_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Promenade promenade;
 }

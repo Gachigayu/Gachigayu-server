@@ -17,6 +17,7 @@ import team.a5.gachigayu.domain.value.PromenadeType;
 import team.a5.gachigayu.repository.PromenadeRepository;
 import team.a5.gachigayu.repository.SaveRepository;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Slf4j
@@ -54,15 +55,19 @@ public class PromenadeService {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User authenticatedUser = (User) authentication.getPrincipal();
 
-        List<Promenade> savedPromenades = saveRepository.findByUser(authenticatedUser)
+        List<Promenade> savedPromenades = getSavedPromenades(authenticatedUser);
+        List<PromenadeResponse> promenades = nearbyPromenades.stream()
+                .map(promenade -> PromenadeResponse.of(promenade, coordinate, savedPromenades.contains(promenade)))
+                .sorted(Comparator.comparing(PromenadeResponse::distance))
+                .toList();
+        return new PromenadeListResponse(promenades);
+    }
+
+    private List<Promenade> getSavedPromenades(User authenticatedUser) {
+        return saveRepository.findByUser(authenticatedUser)
                 .stream()
                 .map(Save::getPromenade)
                 .toList();
-
-        List<PromenadeResponse> promenades = nearbyPromenades.stream()
-                .map(promenade -> PromenadeResponse.of(promenade, coordinate, savedPromenades.contains(promenade)))
-                .toList();
-        return new PromenadeListResponse(promenades);
     }
 
     public PromenadeRoutesResponse getPromenadeRoutes(Long id) {
