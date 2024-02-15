@@ -42,4 +42,11 @@ public class Promenade extends BaseEntity {
 
     @OneToMany(mappedBy = "promenade", cascade = CascadeType.REMOVE)
     private List<Route> routes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "promenade")
+    private List<Save> saves = new ArrayList<>();
+
+    public int getSavesCount() {
+        return saves.size();
+    }
 }
