@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import team.a5.gachigayu.controller.dto.request.UserInfoRequest;
+import team.a5.gachigayu.controller.dto.response.UserInfoResponse;
 import team.a5.gachigayu.domain.User;
 import team.a5.gachigayu.repository.UserRepository;
 
@@ -32,5 +33,14 @@ public class UserInfoRegistrant {
 
         authenticatedUser.updateInfo(userInfoRequest.name(), userInfoRequest.accountId(), imageURL);
         userRepository.save(authenticatedUser);
+    }
+
+    @Transactional(readOnly = true)
+    public UserInfoResponse getUserInfo() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User authenticatedUser = (User) authentication.getPrincipal();
+
+        return new UserInfoResponse(authenticatedUser.getName(), authenticatedUser.getAccountId(),
+                authenticatedUser.getProfileImage());
     }
 }

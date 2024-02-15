@@ -1,6 +1,7 @@
 package team.a5.gachigayu.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import team.a5.gachigayu.controller.dto.request.UserInfoRequest;
+import team.a5.gachigayu.controller.dto.response.UserInfoResponse;
 import team.a5.gachigayu.service.UserInfoRegistrant;
 
 @Slf4j
@@ -19,6 +21,12 @@ public class UserController {
 
     public UserController(UserInfoRegistrant userInfoRegistrant) {
         this.userInfoRegistrant = userInfoRegistrant;
+    }
+
+    @GetMapping
+    public UserInfoResponse userInfo() {
+        return userInfoRegistrant.getUserInfo();
+
     }
 
     @PostMapping

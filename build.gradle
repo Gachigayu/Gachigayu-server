@@ -43,6 +43,7 @@ dependencies {
     implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
     implementation 'org.hibernate.orm:hibernate-spatial:6.4.4.Final'
     implementation 'com.amazonaws:aws-java-sdk-s3:1.12.658'
+    implementation 'org.springframework.cloud:spring-cloud-gcp-starter-vision:1.2.8.RELEASE'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
