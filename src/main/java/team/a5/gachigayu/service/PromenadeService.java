@@ -71,6 +71,7 @@ public class PromenadeService {
                 .toList();
     }
 
+    @Transactional(readOnly = true)
     public PromenadeRoutesResponse getPromenadeRoutes(Long id) {
         Promenade promenade = promenadeRepository.findById(id)
                 .orElseThrow();

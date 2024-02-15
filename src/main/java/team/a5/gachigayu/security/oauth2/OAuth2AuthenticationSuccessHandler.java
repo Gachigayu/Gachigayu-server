@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
+import team.a5.gachigayu.domain.value.SignUpResult;
 import team.a5.gachigayu.security.oauth2.account.AccountAttributes;
 import team.a5.gachigayu.security.oauth2.account.KakaoAccountAttributes;
 import team.a5.gachigayu.security.oauth2.account.SignUpProcessManager;
@@ -31,14 +32,14 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         log.info("oAuth2User = {}", oAuth2User);
         AccountAttributes kakaoAccountAttributes = KakaoAccountAttributes.from(oAuth2User);
 
-        signUpProcessManager.processSignUp(kakaoAccountAttributes);
+        SignUpResult signUpResult = signUpProcessManager.processSignUp(kakaoAccountAttributes);
 
         String email = kakaoAccountAttributes.email();
         String accessToken = tokenProvider.issueAccessToken(email);
         String refreshToken = tokenProvider.issueRefreshToken(email);
 
         String redirectURI = OAuth2RedirectURIGenerator
-                .generateRedirectURI(accessToken, refreshToken);
+                .generateRedirectURI(accessToken, refreshToken, signUpResult);
         getRedirectStrategy().sendRedirect(request, response, redirectURI);
     }
 }

@@ -27,7 +27,6 @@ public class UserController {
     @GetMapping
     public UserInfoResponse userInfo() {
         return userInfoRegistrant.getUserInfo();
-
     }
 
     @PostMapping

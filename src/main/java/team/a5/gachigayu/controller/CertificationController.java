@@ -24,10 +24,8 @@ public class CertificationController {
             HttpServletResponse response
     ) {
         boolean isValidCertification = certificationService.verifyCertification(certificationImage);
-        if (isValidCertification) {
-            response.setStatus(HttpServletResponse.SC_OK);
-            return;
+        if (!isValidCertification) {
+            response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         }
-        response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
     }
 }

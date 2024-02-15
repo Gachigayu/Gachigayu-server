@@ -1,6 +1,6 @@
 package team.a5.gachigayu.domain.value;
 
-public enum Domain {
+public enum SignUpResult {
 
-    USER
+    NEW, EXISTS
 }

@@ -20,6 +20,9 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "email", unique = true, nullable = false, updatable = false, length = 50)
     private String email;
 
+    @Column(name = "nickname", nullable = false, length = 12)
+    private String nickname;
+
     @Column(name = "name", length = 12)
     private String name;
 
@@ -39,13 +42,15 @@ public class User extends BaseEntity implements UserDetails {
     }
 
     @Builder
-    public User(String email) {
+    public User(String email, String nickname) {
         this.email = email;
+        this.nickname = nickname;
     }
 
-    public static User of(String email) {
+    public static User of(String email, String nickname) {
         return User.builder()
                 .email(email)
+                .nickname(nickname)
                 .build();
     }
 
@@ -88,5 +93,9 @@ public class User extends BaseEntity implements UserDetails {
         this.name = name;
         this.accountId = accountId;
         this.profileImage = imageURL;
+    }
+
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
     }
 }

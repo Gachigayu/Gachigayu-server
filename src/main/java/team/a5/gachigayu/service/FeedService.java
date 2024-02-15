@@ -3,12 +3,12 @@ package team.a5.gachigayu.service;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import team.a5.gachigayu.controller.dto.response.FeedListResponse;
 import team.a5.gachigayu.controller.dto.response.FeedResponse;
 import team.a5.gachigayu.domain.Promenade;
 import team.a5.gachigayu.domain.value.FeedOrder;
 import team.a5.gachigayu.repository.PromenadeRepository;
-import team.a5.gachigayu.repository.SaveRepository;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 
+@Transactional
 @Service
 public class FeedService {
 
@@ -28,11 +29,9 @@ public class FeedService {
     }
 
     private final PromenadeRepository promenadeRepository;
-    private final SaveRepository saveRepository;
 
-    public FeedService(PromenadeRepository promenadeRepository, SaveRepository saveRepository) {
+    public FeedService(PromenadeRepository promenadeRepository) {
         this.promenadeRepository = promenadeRepository;
-        this.saveRepository = saveRepository;
     }
 
     public FeedListResponse getFeeds(FeedOrder order) {
