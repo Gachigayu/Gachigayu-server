@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import team.a5.gachigayu.controller.dto.request.UserInfoRequest;
-import team.a5.gachigayu.controller.dto.response.UserActivityHistoryResponse;
+import team.a5.gachigayu.controller.dto.response.ActivityHistoryListResponse;
 import team.a5.gachigayu.controller.dto.response.UserInfoResponse;
+import team.a5.gachigayu.service.ActivityService;
 import team.a5.gachigayu.service.UserInfoRegistrant;
 
 @Slf4j
@@ -19,9 +20,11 @@ import team.a5.gachigayu.service.UserInfoRegistrant;
 public class UserController {
 
     private final UserInfoRegistrant userInfoRegistrant;
+    private final ActivityService activityService;
 
-    public UserController(UserInfoRegistrant userInfoRegistrant) {
+    public UserController(UserInfoRegistrant userInfoRegistrant, ActivityService activityService) {
         this.userInfoRegistrant = userInfoRegistrant;
+        this.activityService = activityService;
     }
 
     @GetMapping
@@ -38,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/activities")
-    public UserActivityHistoryResponse userActivityHistory() {
-        return null;
+    public ActivityHistoryListResponse userActivityHistory() {
+        return activityService.getUserActivityHistory();
     }
 }

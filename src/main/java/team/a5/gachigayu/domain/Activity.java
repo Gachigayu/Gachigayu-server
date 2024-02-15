@@ -27,6 +27,9 @@ public class Activity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Promenade promenade;
 
+    public Activity() {
+    }
+
     @Builder
     public Activity(ActivityStatus status, User user, Promenade promenade) {
         this.status = status;

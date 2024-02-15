@@ -1,5 +1,6 @@
 package team.a5.gachigayu.repository;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import team.a5.gachigayu.domain.Activity;
@@ -11,4 +12,7 @@ public interface ActivityRepository extends JpaRepository<Activity, Long> {
 
     @EntityGraph(attributePaths = "promenade")
     List<Activity> findByUser(User user);
+
+    @EntityGraph(attributePaths = "promenade")
+    List<Activity> findByUser(User user, Sort sort);
 }
