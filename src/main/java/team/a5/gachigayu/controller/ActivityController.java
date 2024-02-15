@@ -26,6 +26,6 @@ public class ActivityController {
 
     @PostMapping("/finish")
     public void finishActivity(@RequestBody FinishActivityRequest finishActivityRequest) {
-
+        activityService.finishActivity(finishActivityRequest.promenadeId());
     }
 }

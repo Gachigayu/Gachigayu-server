@@ -35,6 +35,10 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "certificate", nullable = false)
     private boolean certificate;
 
+    private int totalLength;
+
+    private int totalTime;
+
     @OneToMany(mappedBy = "user")
     private List<Activity> activities = new ArrayList<>();
 
@@ -97,5 +101,10 @@ public class User extends BaseEntity implements UserDetails {
 
     public void updateNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public void updateActivity(Promenade promenade) {
+        this.totalLength += promenade.getLength();
+        this.totalTime += promenade.getTime();
     }
 }

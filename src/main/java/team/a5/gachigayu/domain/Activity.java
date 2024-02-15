@@ -7,6 +7,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.Getter;
 import team.a5.gachigayu.domain.value.ActivityStatus;
 
@@ -25,4 +26,11 @@ public class Activity extends BaseEntity {
     @JoinColumn(name = "promenade_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Promenade promenade;
+
+    @Builder
+    public Activity(ActivityStatus status, User user, Promenade promenade) {
+        this.status = status;
+        this.user = user;
+        this.promenade = promenade;
+    }
 }

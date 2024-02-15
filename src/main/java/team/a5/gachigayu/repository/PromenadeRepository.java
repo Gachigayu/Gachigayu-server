@@ -11,14 +11,14 @@ import java.util.List;
 public interface PromenadeRepository extends JpaRepository<Promenade, Long> {
 
     @Query(value = "SELECT * FROM promenade p " +
-            "WHERE p.start_at >= NOW()" +
+            "WHERE DATE(p.start_at) = CURDATE()" +
             "AND ST_DISTANCE_SPHERE(p.location, ST_POINTFROMTEXT(:location, 4326)) <= :distance",
             nativeQuery = true)
     List<Promenade> findByLocationNear(String location, double distance);
 
     @Query(value = "SELECT * FROM promenade p " +
             "WHERE p.type = :type " +
-            "AND p.start_at >= NOW()" +
+            "AND DATE(p.start_at) = CURDATE()" +
             "AND ST_DISTANCE_SPHERE(p.location, ST_POINTFROMTEXT(:location, 4326)) <= :distance",
             nativeQuery = true)
     List<Promenade> findByTypeAndLocationNear(String type, String location, double distance);

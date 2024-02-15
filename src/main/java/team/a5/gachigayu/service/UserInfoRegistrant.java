@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import team.a5.gachigayu.controller.dto.request.UserInfoRequest;
 import team.a5.gachigayu.controller.dto.response.UserInfoResponse;
 import team.a5.gachigayu.domain.User;
+import team.a5.gachigayu.domain.UserRecord;
 import team.a5.gachigayu.repository.UserRepository;
 
 @Slf4j
@@ -18,10 +19,12 @@ public class UserInfoRegistrant {
 
     private final UserRepository userRepository;
     private final ImageService imageService;
+    private final UserRecordService userRecordService;
 
-    public UserInfoRegistrant(UserRepository userRepository, ImageService imageService) {
+    public UserInfoRegistrant(UserRepository userRepository, ImageService imageService, UserRecordService userRecordService) {
         this.userRepository = userRepository;
         this.imageService = imageService;
+        this.userRecordService = userRecordService;
     }
 
     public void register(UserInfoRequest userInfoRequest, MultipartFile profileImage) {
@@ -42,7 +45,7 @@ public class UserInfoRegistrant {
                 .getAuthentication();
         User authenticatedUser = (User) authentication.getPrincipal();
 
-        return new UserInfoResponse(authenticatedUser.getName(), authenticatedUser.getAccountId(),
-                authenticatedUser.getProfileImage());
+        UserRecord userRecord = userRecordService.getUserRecord(authenticatedUser);
+        return UserInfoResponse.of(authenticatedUser, userRecord);
     }
 }
