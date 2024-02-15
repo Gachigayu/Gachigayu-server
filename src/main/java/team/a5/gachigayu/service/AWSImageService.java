@@ -20,13 +20,7 @@ public class AWSImageService extends ImageService {
         this.amazonS3 = amazonS3;
         this.awsProperties = awsProperties;
     }
-
-    /**
-     * AWS S3 이미지 업로드
-     *
-     * @param multipartFile 업로드할 이미지
-     * @return 이미지 URL
-     */
+    
     @Override
     public String uploadImage(MultipartFile multipartFile) {
         if (multipartFile == null) {

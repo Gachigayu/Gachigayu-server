@@ -28,7 +28,8 @@ public class UserInfoRegistrant {
         String imageURL = imageService.uploadImage(profileImage);
         log.info("imageURL = {}", imageURL);
 
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
         User authenticatedUser = (User) authentication.getPrincipal();
 
         authenticatedUser.updateInfo(userInfoRequest.name(), userInfoRequest.accountId(), imageURL);
@@ -37,7 +38,8 @@ public class UserInfoRegistrant {
 
     @Transactional(readOnly = true)
     public UserInfoResponse getUserInfo() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
         User authenticatedUser = (User) authentication.getPrincipal();
 
         return new UserInfoResponse(authenticatedUser.getName(), authenticatedUser.getAccountId(),

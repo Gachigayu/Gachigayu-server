@@ -52,7 +52,8 @@ public class PromenadeService {
     }
 
     private PromenadeListResponse convertToResponse(GeoPoint coordinate, List<Promenade> nearbyPromenades) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
         User authenticatedUser = (User) authentication.getPrincipal();
 
         List<Promenade> savedPromenades = getSavedPromenades(authenticatedUser);

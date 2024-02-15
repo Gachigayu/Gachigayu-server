@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import team.a5.gachigayu.controller.dto.request.UserInfoRequest;
+import team.a5.gachigayu.controller.dto.response.UserActivityHistoryResponse;
 import team.a5.gachigayu.controller.dto.response.UserInfoResponse;
 import team.a5.gachigayu.service.UserInfoRegistrant;
 
@@ -35,5 +36,10 @@ public class UserController {
             @ModelAttribute UserInfoRequest userInfoRequest
     ) {
         userInfoRegistrant.register(userInfoRequest, profileImage);
+    }
+
+    @GetMapping("/activities")
+    public UserActivityHistoryResponse userActivityHistory() {
+        return null;
     }
 }
