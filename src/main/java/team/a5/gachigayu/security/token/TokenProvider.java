@@ -26,7 +26,7 @@ public class TokenProvider {
     }
 
     public String issueAccessToken(String email) {
-        return generateJWT(email, Duration.ofDays(2)); // TODO -> ofHours(2)
+        return generateJWT(email, Duration.ofDays(2)); //TODO -> ofHours(2)
     }
 
     public String issueRefreshToken(String email) {

@@ -29,6 +29,9 @@ public class User extends BaseEntity implements UserDetails {
     @Column(name = "profile_image", length = 200)
     private String profileImage;
 
+    @Column(name = "certificate", nullable = false)
+    private boolean certificate;
+
     @OneToMany(mappedBy = "user")
     private List<Activity> activities = new ArrayList<>();
 
