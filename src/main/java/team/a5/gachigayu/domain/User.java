@@ -2,13 +2,16 @@ package team.a5.gachigayu.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Entity
@@ -22,6 +25,9 @@ public class User extends BaseEntity implements UserDetails {
 
     @Column(name = "account_id", length = 30)
     private String accountId;
+
+    @OneToMany(mappedBy = "user")
+    private List<Activity> activities = new ArrayList<>();
 
     protected User() {
     }
