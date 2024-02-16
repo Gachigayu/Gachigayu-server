@@ -40,8 +40,8 @@ public class OAuth2SecurityConfiguration {
                 .authorizeHttpRequests(authorization -> authorization
                         .requestMatchers("/oauth2/authorization/**").permitAll()
                         .requestMatchers("/api/authorization/**").permitAll()
-//                        .anyRequest().authenticated())
-                        .anyRequest().permitAll())
+                        .anyRequest().authenticated())
+//                        .anyRequest().permitAll())
                 .oauth2Login(oauth2Login -> oauth2Login
                         .successHandler(authenticationSuccessHandler())
                         .userInfoEndpoint(userInfo -> userInfo.userService(new DefaultOAuth2UserService())))
