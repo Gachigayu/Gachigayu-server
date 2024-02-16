@@ -11,6 +11,8 @@ import team.a5.gachigayu.domain.User;
 import team.a5.gachigayu.repository.PromenadeRepository;
 import team.a5.gachigayu.repository.SaveRepository;
 
+import java.util.Optional;
+
 @Slf4j
 @Transactional
 @Service
@@ -31,6 +33,12 @@ public class SaveService {
 
         Promenade promenade = promenadeRepository.findById(promenadeId)
                 .orElseThrow();
+        Optional<Save> nullableSave = saveRepository.findByUserAndPromenade(authenticatedUser, promenade);
+        if (nullableSave.isPresent()) {
+            saveRepository.delete(nullableSave.get());
+            return;
+        }
+
         Save save = new Save(authenticatedUser, promenade);
         saveRepository.save(save);
     }
