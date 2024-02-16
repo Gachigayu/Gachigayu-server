@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team.a5.gachigayu.controller.dto.request.FinishActivityRequest;
-import team.a5.gachigayu.controller.dto.request.StartActivityRequest;
 import team.a5.gachigayu.service.ActivityService;
 
 @RequestMapping("/api/activities")
@@ -16,12 +15,6 @@ public class ActivityController {
 
     public ActivityController(ActivityService activityService) {
         this.activityService = activityService;
-    }
-
-    @PostMapping("/start")
-    public String startActivity(@RequestBody StartActivityRequest startActivityRequest) {
-        boolean isStart = activityService.startActivity(startActivityRequest.promenadeId());
-        return null;
     }
 
     @PostMapping("/finish")

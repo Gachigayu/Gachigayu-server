@@ -45,10 +45,14 @@ public class ActivityService {
         Promenade promenade = promenadeRepository.findById(promenadeId)
                 .orElseThrow();
         if (promenade.getType().equals(PromenadeType.TOURISM)) {
-            verifyUserCertificate(authenticatedUser);
+            try {
+                verifyUserCertificate(authenticatedUser);
+            } catch (BusinessException e) {
+                return false;
+            }
         }
 
-        return false;
+        return true;
     }
 
     private void verifyUserCertificate(User user) {
