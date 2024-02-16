@@ -17,4 +17,12 @@ public class Save extends BaseEntity {
     @JoinColumn(name = "promenade_id")
     @ManyToOne(fetch = FetchType.LAZY)
     private Promenade promenade;
+
+    public Save() {
+    }
+
+    public Save(User user, Promenade promenade) {
+        this.user = user;
+        this.promenade = promenade;
+    }
 }

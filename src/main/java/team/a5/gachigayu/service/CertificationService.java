@@ -30,6 +30,11 @@ public class CertificationService {
         log.info("detectedText = {}", detectedText);
         ImageProcessor.removeImage(certificationImagePath);
 
-        return TourGuideCertificationVerifier.isValidCertification(detectedText, authenticatedUser.getName());
+        boolean isValid = TourGuideCertificationVerifier
+                .isValidCertification(detectedText, authenticatedUser.getName());
+        if (isValid) {
+            authenticatedUser.verify();
+        }
+        return isValid;
     }
 }

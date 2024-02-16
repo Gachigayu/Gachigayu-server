@@ -107,4 +107,8 @@ public class User extends BaseEntity implements UserDetails {
         this.totalLength += promenade.getLength();
         this.totalTime += promenade.getTime();
     }
+
+    public void verify() {
+        this.certificate = true;
+    }
 }
