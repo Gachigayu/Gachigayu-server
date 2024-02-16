@@ -8,6 +8,6 @@ public record RouteResponse(int sequence, double latitude, double longitude, Str
     public static RouteResponse of(Route route) {
         int sequence = route.getSequence();
         Point coordinate = route.getCoordinate();
-        return new RouteResponse(sequence, coordinate.getX(), coordinate.getY(), route.getDescription());
+        return new RouteResponse(sequence, coordinate.getY(), coordinate.getX(), route.getDescription());
     }
 }
