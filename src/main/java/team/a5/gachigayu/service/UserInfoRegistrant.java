@@ -29,7 +29,6 @@ public class UserInfoRegistrant {
 
     public void register(UserInfoRequest userInfoRequest, MultipartFile profileImage) {
         String imageURL = imageService.uploadImage(profileImage);
-        log.info("imageURL = {}", imageURL);
 
         Authentication authentication = SecurityContextHolder.getContext()
                 .getAuthentication();

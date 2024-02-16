@@ -34,7 +34,7 @@ public class UserController {
 
     @PostMapping
     public void registerUserInfo(
-            @RequestPart(name = "profileImage") MultipartFile profileImage,
+            @RequestPart(name = "profileImage", required = false) MultipartFile profileImage,
             @ModelAttribute UserInfoRequest userInfoRequest
     ) {
         userInfoRegistrant.register(userInfoRequest, profileImage);

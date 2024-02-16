@@ -96,7 +96,9 @@ public class User extends BaseEntity implements UserDetails {
     public void updateInfo(String name, String accountId, String imageURL) {
         this.name = name;
         this.accountId = accountId;
-        this.profileImage = imageURL;
+        if (imageURL != null) {
+            this.profileImage = imageURL;
+        }
     }
 
     public void updateNickname(String nickname) {
