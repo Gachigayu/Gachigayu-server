@@ -5,7 +5,7 @@ import team.a5.gachigayu.domain.value.SignUpResult;
 
 public class OAuth2RedirectURIGenerator {
 
-    private static final String AUTH_REDIRECT_URL = "https://gachigayu.vercel.app/oauth2/authorization";
+    private static final String AUTH_REDIRECT_URL = "https://gachigayu1.vercel.app/oauth2/authorization";
 
     public static String generateRedirectURI(String accessToken, String refreshToken, SignUpResult signUpResult) {
         return UriComponentsBuilder.fromUriString(AUTH_REDIRECT_URL)
