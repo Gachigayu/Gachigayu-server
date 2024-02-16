@@ -1,6 +1,5 @@
 package team.a5.gachigayu.controller;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.geo.Point;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +12,6 @@ import team.a5.gachigayu.domain.value.GeoPoint;
 import team.a5.gachigayu.domain.value.PromenadeType;
 import team.a5.gachigayu.service.PromenadeService;
 
-@Slf4j
 @RequestMapping("/api/promenades")
 @RestController
 public class PromenadeController {
@@ -29,8 +27,6 @@ public class PromenadeController {
             @RequestParam(name = "type", required = false) PromenadeType type,
             @RequestParam(name = "coordinate") Point coordinate
     ) {
-        log.info("type = {}", type);
-        log.info("coordinate = {}", coordinate);
         if (type == null) {
             return promenadeService.getNearbyPromenades(GeoPoint.from(coordinate));
         }
